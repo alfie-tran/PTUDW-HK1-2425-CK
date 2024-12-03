@@ -1,0 +1,42 @@
+{{#with thread}}
+<main class='container mt-3'>
+	<div class='thread card mb-3'>
+
+		<div class='card-body'>
+			<h6 class='card-title'>@{{User.username}}</h6>
+			<p class='card-text'>
+				{{content}}
+			</p>
+			<img src='{{mediaUrl}}' alt='Thread Media' class='img-fluid rounded w-100' />
+			<div class='d-flex justify-content-between mt-4'>
+				<button type='button' class='btn btn-outline-primary btn-sm position-relative'>
+					Like
+					<span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary p-1'>
+						{{Likes.length}}
+						<span class='visually-hidden'>Likes</span>
+					</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- Comments -->
+	<h6>Comments ({{Comments.length}})</h6>		
+{{/with}}
+	
+	<!-- Add Comment -->
+	
+	{{#if errorMessage}}
+	<div class="alert alert-danger">{{errorMessage}}</div>
+	{{/if}}
+	<form action='/thread' method='POST'>
+		<textarea class='form-control mb-2' rows='2' placeholder='Add a comment...' name='content' required></textarea>
+		<button type='submit' class='btn btn-primary btn-sm'>Post</button>
+	</form>
+	{{#each comments}}
+		<div class='card my-2'>
+			<div class='card-body'>
+				<p><strong>@{{User.username}}:</strong> {{content}}</p>
+			</div>
+		</div>
+	{{/each}}
+</main>
